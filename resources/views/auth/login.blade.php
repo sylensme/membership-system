@@ -12,18 +12,16 @@
     <main class="login-panel">
         <a class="app-brand" href="{{ route('login') }}"><span class="app-mark" aria-hidden="true"></span><span>Member Desk</span></a>
         <p class="eyebrow">Administrator access</p><h1>Sign in</h1><p class="muted">Manage member records, applications, and payments from one workspace.</p>
-        @if (app()->environment('local'))
-            <div class="login-info">
-                <button class="login-info-toggle" type="button" data-login-info-toggle aria-expanded="false" aria-controls="login-info-panel">Show demo login info</button>
-                <div class="login-info-panel" id="login-info-panel" hidden>
-                    <p>Use this demo administrator account for your class presentation.</p>
-                    <dl>
-                        <dt>Admin email</dt><dd><code>test@example.com</code></dd>
-                        <dt>Password</dt><dd><code>password</code></dd>
-                    </dl>
-                </div>
+        <div class="login-info">
+            <button class="login-info-toggle" type="button" data-login-info-toggle aria-expanded="false" aria-controls="login-info-panel">Show demo login info</button>
+            <div class="login-info-panel" id="login-info-panel" hidden>
+                <p>Use this demo administrator account for your class presentation.</p>
+                <dl>
+                    <dt>Admin email</dt><dd><code>{{ app()->environment('local') ? 'test@example.com' : 'test@gmail.com' }}</code></dd>
+                    <dt>Password</dt><dd><code>{{ app()->environment('local') ? 'password' : 'passwordispassword' }}</code></dd>
+                </dl>
             </div>
-        @endif
+        </div>
         @if ($errors->any())<div class="alert error" role="alert">{{ $errors->first() }}</div>@endif
         <form action="{{ route('login.store') }}" method="POST">
             @csrf
